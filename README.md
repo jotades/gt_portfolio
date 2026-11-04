@@ -1,75 +1,75 @@
-# Portfolio di Giovanni Tauro
+# Giovanni Tauro – Portfolio
 
-Sito statico, senza framework: HTML, un foglio di stile e un JavaScript per ogni componente interattivo.
+A static site with no framework: HTML, one stylesheet, and one JavaScript file per interactive component.
 
-## Aprirlo in VS Code
+## Opening it in VS Code
 
-1. **File → Apri cartella…** e scegli questa cartella.
-2. Installa l’estensione consigliata **Live Server** (VS Code la propone da sola, è in `.vscode/extensions.json`).
-3. Tasto destro su `index.html` → **Open with Live Server**: il sito si apre nel browser e si ricarica a ogni salvataggio.
+1. **File → Open Folder…** and pick this folder.
+2. Install the recommended **Live Server** extension (VS Code suggests it automatically; it is listed in `.vscode/extensions.json`).
+3. Right-click `index.html` → **Open with Live Server**: the site opens in the browser and reloads on every save.
 
-In alternativa, da terminale: `python3 -m http.server` e poi apri <http://localhost:8000>.
+Alternatively, from a terminal: `python3 -m http.server`, then open <http://localhost:8000>.
 
-## Dove sono le cose
+## Where things are
 
-| Percorso | Contenuto |
+| Path | Contents |
 |---|---|
-| `index.html` | Tutte le pagine. Ogni progetto è un `<main data-view="nome">`; la home è `data-view="home"`. |
-| `css/site.css` | Tutti gli stili. Colori e misure di base sono le variabili in `:root` all’inizio. |
-| `assets/img/` | Le immagini. Quelle con nomi leggibili vengono dal portfolio PDF; le `embedded-…` erano incorporate nella pagina. |
-| `build.py` | Ricrea la versione in un file unico, in `dist/`. |
+| `index.html` | Every page. Each project is a `<main data-view="name">`; the home page is `data-view="home"`. |
+| `css/site.css` | All styles. Base colors and sizes are the variables in `:root` at the top. |
+| `assets/img/` | Images. Those with readable names come from the PDF portfolio; the `embedded-…` ones were previously inlined in the page. |
+| `build.py` | Rebuilds the single-file version in `dist/`. |
 
-Gli script, nell’ordine in cui la pagina li carica:
+Scripts, in the order the page loads them:
 
-| File | Cosa fa |
+| File | What it does |
 |---|---|
-| `js/00-lang.js` | sceglie la lingua (nella `<head>`): `?lang=it/en` nell’indirizzo, poi la scelta fatta con lo switch, poi la lingua del browser |
-| `js/00-i18n-it.js` | il dizionario inglese → italiano |
-| `js/00-i18n.js` | traduce la pagina in italiano, anche i testi scritti dagli script, e gestisce lo switch IT / EN |
-| `js/01-router.js` | navigazione tra le pagine (hash nell'indirizzo) |
-| `js/02-sim.js` | RehaBalloon, simulatore del palloncino |
-| `js/03-pc-proto.js` | PhiCube, prototipi (paziente e terapista) |
-| `js/04-core-fig.js` | RehaBalloon, vista 3D in sezione |
-| `js/05-pc-proto.js` | PhiCube, prototipi (paziente e terapista) |
-| `js/06-ard-sim.js` | Arduino lesson, simulatore |
-| `js/07-bk-view.js` | Blender lesson, visore del baking |
-| `js/08-blend-zip.js` | Blender lesson, download del file .blend |
-| `js/09-bal-sim.js` | Balancing device, simulatore |
-| `js/10-sw-sim.js` | Rip@rto, volante force feedback |
-| `js/11-fl-sim.js` | Unity experiments, fluido |
-| `js/12-pr-demo.js` | Unity experiments, proprietà C# |
-| `js/13-publications.js` | filtri e ricerca delle pubblicazioni |
-| `js/14-cal.js` | Rip@rto, grafico di taratura |
-| `js/15-rb.js` | Rip@rto, costruttore di strada a blocchi |
-| `js/16-wb-app.js` | WashB, prototipo dell'app |
-| `js/17-rd-app.js` | RED 6.3, app di sharing |
-| `js/18-section-index.js` | indice delle sezioni nelle pagine progetto |
-| `js/19-ot-sim.js` | OmniTrack, simulatore "caldo-freddo" |
-| `js/20-cx.js` | OmniTrack, esploratore della calibrazione |
+| `js/00-lang.js` | picks the language (in the `<head>`): `?lang=it/en` in the URL, then the choice made with the switch, then the browser language |
+| `js/00-i18n-it.js` | the English → Italian dictionary |
+| `js/00-i18n.js` | translates the page into Italian, including text written by scripts, and handles the IT / EN switch |
+| `js/01-router.js` | navigation between pages (hash in the URL) |
+| `js/02-sim.js` | RehaBalloon, balloon simulator |
+| `js/03-pc-proto.js` | PhiCube, prototypes (patient and therapist) |
+| `js/04-core-fig.js` | RehaBalloon, 3D cross-section view |
+| `js/05-pc-proto.js` | PhiCube, prototypes (patient and therapist) |
+| `js/06-ard-sim.js` | Arduino lesson, simulator |
+| `js/07-bk-view.js` | Blender lesson, baking viewer |
+| `js/08-blend-zip.js` | Blender lesson, .blend file download |
+| `js/09-bal-sim.js` | Balancing device, simulator |
+| `js/10-sw-sim.js` | Rip@rto, force-feedback steering wheel |
+| `js/11-fl-sim.js` | Unity experiments, fluid |
+| `js/12-pr-demo.js` | Unity experiments, C# properties |
+| `js/13-publications.js` | publication filters and search |
+| `js/14-cal.js` | Rip@rto, calibration chart |
+| `js/15-rb.js` | Rip@rto, block-based road builder |
+| `js/16-wb-app.js` | WashB, app prototype |
+| `js/17-rd-app.js` | RED 6.3, sharing app |
+| `js/18-section-index.js` | section index on project pages |
+| `js/19-ot-sim.js` | OmniTrack, "hot-cold" simulator |
+| `js/20-cx.js` | OmniTrack, calibration explorer |
 | `js/21-oa.js` | OmniTrack, OmniAnalytics |
-| `js/22-od.js` | OmniTrack, dashboard operatore |
-| `js/23-work.js` | home: filtri per ruolo e timeline |
-| `js/24-sk.js` | Passions, gioco skateboard e snowboard |
+| `js/22-od.js` | OmniTrack, operator dashboard |
+| `js/23-work.js` | home: role filters and timeline |
+| `js/24-sk.js` | Passions, skateboard and snowboard game |
 
-Le parti ancora da completare sono nei `<span class="todo">…</span>` (evidenziati in blu sul sito). Quando non ce ne sono più, togli anche l’avviso “Bozza” in fondo a `index.html`.
+Parts still to be completed are in `<span class="todo">…</span>` (highlighted in blue on the site). Once there are none left, also remove the "Draft" notice at the bottom of `index.html`.
 
-## Le due lingue
+## The two languages
 
-Il sito è scritto in inglese in `index.html`. Se il browser è in italiano (o se il visitatore sceglie IT nello switch in alto), `js/00-i18n.js` sostituisce ogni testo con quello di `js/00-i18n-it.js`. La scelta resta salvata nel browser; cambiare lingua ricarica la pagina.
+The site is written in English in `index.html`. If the browser is set to Italian (or the visitor picks IT in the switch at the top), `js/00-i18n.js` replaces each text with the one from `js/00-i18n-it.js`. The choice is saved in the browser; switching language reloads the page.
 
-- **Le chiavi del dizionario** sono il testo inglese esattamente com’è in `index.html` (spazi ridotti a uno). Per paragrafi, titoli e pulsanti la chiave è tutto il loro HTML interno, tag compresi: il valore italiano deve avere gli stessi tag.
-- **Se modifichi un testo inglese**, modifica anche la sua chiave nel dizionario, altrimenti quel testo resta in inglese nella versione italiana.
-- **`{#}`** in una chiave vale per un numero qualunque: serve per i testi che gli script scrivono con valori che cambiano.
-- Un elemento con `translate="no"` (o classe `notranslate`) non viene tradotto.
-- Per vedere una lingua precisa: `index.html?lang=it` oppure `index.html?lang=en`.
+- **Dictionary keys** are the English text exactly as it appears in `index.html` (whitespace collapsed to single spaces). For paragraphs, headings and buttons the key is their whole inner HTML, tags included: the Italian value must have the same tags.
+- **If you change an English text**, change its dictionary key too, otherwise that text stays in English in the Italian version.
+- **`{#}`** in a key matches any number: it is used for text that scripts write with changing values.
+- An element with `translate="no"` (or the `notranslate` class) is not translated.
+- To view a specific language: `index.html?lang=it` or `index.html?lang=en`.
 
-## Pubblicarlo
+## Publishing
 
-- **GitHub Pages:** carica *il contenuto* di questa cartella (`index.html`, `css/`, `js/`, `assets/`) nel repository `jotades.github.io`. Funziona così com’è, senza build.
-- **File unico** (link di claude.ai, Netlify Drop, email): `python3 build.py` crea `dist/giovanni-tauro-portfolio.html`, con stili, script e immagini dentro.
+- **GitHub Pages:** upload *the contents* of this folder (`index.html`, `css/`, `js/`, `assets/`) to the `jotades.github.io` repository. It works as is, with no build step.
+- **Single file** (claude.ai link, Netlify Drop, email): `python3 build.py` creates `dist/giovanni-tauro-portfolio.html`, with styles, scripts and images inlined.
 
-## Note
+## Notes
 
-- Le demo 3D caricano three.js da cdnjs, e il font Archivo arriva da Google Fonts: serve la connessione.
-- Alcuni dati restano dentro gli script (mesh delle arcate di WashB, dati della tesi per OmniTrack, il file .blend del dado): sono grandi ma non vanno toccati a mano.
-- Il gioco e i filtri salvano solo preferenze e record nel `localStorage` del browser.
+- The 3D demos load three.js from cdnjs, and the Archivo font comes from Google Fonts: an internet connection is required.
+- Some data stays inside the scripts (WashB arch meshes, thesis data for OmniTrack, the dice .blend file): it is large but should not be edited by hand.
+- The game and the filters only store preferences and high scores in the browser's `localStorage`.
