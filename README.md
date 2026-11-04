@@ -67,7 +67,7 @@ The site is written in English in `index.html`. If the browser is set to Italian
 
 ## Publishing
 
-- **GitHub Pages:** upload *the contents* of this folder (`index.html`, `css/`, `js/`, `assets/`) to the `jotades.github.io` repository. It works as is, with no build step.
+- **GitHub Pages:** upload *the contents* of this folder (`index.html`, `css/`, `js/`, `assets/`) to the `jotades.github.io` repository. It works as is, with no build step. The empty `.nojekyll` file tells GitHub to serve the files as they are, without running Jekyll first: keep it.
 - **Single file** (claude.ai link, Netlify Drop, email): `python3 build.py` creates `dist/giovanni-tauro-portfolio.html`, with styles, scripts and images inlined.
 
 ## Notes
