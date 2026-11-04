@@ -1,12 +1,10 @@
 (function(){
-  // picks the language before the page is drawn: ?lang= in the address, then the visitor's choice, then the browser
+  // picks the language before the page is drawn: ?lang= in the address, then the visitor's choice with the switch;
+  // otherwise English, whatever the language of the browser
   var lang = "", q = /[?&]lang=(it|en)\b/.exec(location.search);
   if (q) lang = q[1];
   if (!lang) { try { lang = localStorage.getItem("lang") || ""; } catch (e) {} }
-  if (lang !== "it" && lang !== "en") {
-    var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-    lang = /^it\b/i.test(prefs[0] || "") ? "it" : "en";
-  }
+  if (lang !== "it" && lang !== "en") lang = "en";
   window.SITE_LANG = lang;
   var root = document.documentElement;
   root.lang = lang;

@@ -73,5 +73,5 @@
       });
     }, { threshold: 0.3 }).observe(frame);
   } else { fit(); started = true; show("loading"); }
-  window.addEventListener("hashchange", function(){ if (location.hash === "#phicube") started = false; });
+  window.addEventListener("hashchange", function(){ if (/^#phicube(\/|$)/.test(location.hash)) started = false; });
 })();

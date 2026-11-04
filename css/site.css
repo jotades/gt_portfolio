@@ -663,6 +663,13 @@ td.num,th.num{text-align:right;padding-right:1rem}
 .step .figs.two > figure > .plate:has(> img),.step .figs.three > figure > .plate:has(> img){aspect-ratio:1/1}
 .step figure > .plate.natural:has(> img){aspect-ratio:auto}
 .step figure > .plate.natural:has(> img) img{height:auto}
+/* a section whose figures need the full width: the text on top, the figures side by side below */
+.step.step-stack{grid-template-columns:minmax(0,1fr);gap:1.2rem}
+.step.step-stack .text{max-width:62ch}
+/* figures of different proportions at the same height: each column as wide as its image is wide for its height */
+.figs.fit{grid-template-columns:minmax(0,.89fr) minmax(0,1.47fr);align-items:end}
+.figs.fit > figure > .plate.natural:has(> img) img{padding:2%}
+@media (max-width:640px){.figs.fit{grid-template-columns:minmax(0,1fr)}}
 .step .bal-pair > figure > .plate:has(> img){aspect-ratio:3/4}
 .step .figs > figure > .plate:has(> img) img{padding:3%}
 .step figure.wide > .plate:has(> img){aspect-ratio:16/9}
@@ -1142,6 +1149,11 @@ main[data-view] .step > .wide{margin-top:0}
 .cx-side label{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--ink-2);margin:.2rem 0 .3rem}
 .cx-side input[type=range]{flex:1;accent-color:#17a398}
 .cx-side .big{font-stretch:125%;font-weight:700;font-size:1.5rem;color:var(--ink)}
+.cx-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--bg);margin:.2rem 0 .8rem}
+.cx-seg button{font:inherit;font-size:.82rem;border:0;background:none;color:var(--ink);border-radius:999px;padding:.3rem .75rem;min-height:30px;cursor:pointer}
+.cx-seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.cx-chart svg .hm-cell{cursor:crosshair}
+.cx-chart svg:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 @media (max-width:820px){.cx-body{grid-template-columns:1fr}}
 /* OmniAnalytics, in the operator dashboard's look: light grey page, white cards, pink accents */
 .oa{--pink:#e8577b;--pinkbg:#fde7ee;--pinkink:#9f1239;--oa-l:#3b82f6;--oa-e:#e8577b;background:#f7f8fb;border:1px solid #e3e6ec;border-radius:14px;padding:clamp(.7rem,2vw,1.1rem);color:#1f2937;font-size:.88rem}
@@ -1256,6 +1268,30 @@ main[data-view] .step > .wide{margin-top:0}
 .role-bar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .role-bar button .c{font-size:.75rem;opacity:.65;margin-left:.3rem;font-variant-numeric:tabular-nums}
 .role-note{font-size:.88rem;color:var(--ink-2);margin:0 0 1.8rem;min-height:1.3em}
+/* Work by role: a report, one chapter per project; the prototype and the sections are moved in from the project pages */
+.for-cta{margin-top:0;align-self:end}
+main[data-view="for"] .role-bar + .role-bar{margin-top:.1rem}
+/* a selection sent in a link: the report without its filters */
+main[data-view="for"].is-picked .role-bar,main[data-view="for"].is-picked .project-head .lede{display:none}
+.rp-all{margin:0 0 clamp(3rem,7vw,5rem)}
+.rp-toc{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .8rem;margin:1.6rem 0 0;padding:1rem 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
+.rp-toc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.2rem}
+.rp-toc button{font:inherit;font-size:.95rem;font-weight:600;background:none;border:0;padding:.3rem 0;color:var(--ink);cursor:pointer;display:inline-flex;gap:.45rem;align-items:baseline}
+.rp-toc button:hover{text-decoration:underline;text-underline-offset:4px}
+.rp-toc .rp-k{font-size:.78rem;color:var(--ink-2)}
+.rp-ch{padding:clamp(3rem,7vw,5rem) 0 clamp(1rem,3vw,2rem);border-bottom:2px solid var(--ink)}
+.rp-ch:last-child{border-bottom:0}
+.rp-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.2rem 1.2rem;align-items:baseline;margin-bottom:1.2rem}
+.rp-head .rp-k{font-stretch:125%;font-weight:700;font-size:1rem;color:var(--accent,var(--blue))}
+.rp-head h2{margin:0;font-size:clamp(2rem,5vw,3.4rem);line-height:1}
+.rp-year{font-stretch:125%;font-weight:700;font-size:.95rem;color:var(--ink-2);white-space:nowrap}
+.rp-intro{font-size:clamp(1.05rem,1.6vw,1.2rem);line-height:1.55;max-width:62ch;margin:0 0 1rem}
+.rp-why{max-width:62ch;margin:0 0 1.6rem;padding:.9rem 1.1rem;background:var(--wash);border-left:3px solid var(--accent,var(--ink));border-radius:0 8px 8px 0;font-size:1rem;line-height:1.5}
+.rp-ch > .tools{margin:0 0 1.6rem}
+.rp-top > .project-hero{margin:0}
+.rp-top > :first-child{margin-top:0}
+.rp-secs > .step:first-child{margin-top:clamp(1rem,3vw,2rem)}
+@media (max-width:640px){.rp-head{grid-template-columns:auto minmax(0,1fr)}.rp-year{grid-column:2}}
 #work .grid [hidden]{display:none!important}
 #work .grid[hidden],#work .ext-card[hidden]{display:none!important}
 .tl{list-style:none;margin:0 0 1rem;padding:0;position:relative}
@@ -1356,7 +1392,27 @@ html.tw-wait .hero h1{visibility:hidden}
 .ot-unit{border-top:1px dashed var(--line);margin-top:.6rem}
 .ot-unit table td{font-size:.84rem;vertical-align:top}
 .ot-sch{width:100%;height:auto;display:block}
-.ot-unit-figs{display:grid;gap:1.4rem;min-width:0}
+.ot-unit-photo > .plate.natural img{padding:0}
+/* a block whose diagram needs the full width: text on top, the diagram large, the details below */
+.eng-row.eng-stack{grid-template-columns:minmax(0,1fr);gap:1rem}
+.eng-stack > .text{max-width:none}
+.eng-stack > .text > p{max-width:68ch}
+.eng-big{margin:0;width:100%;max-width:760px;justify-self:center}
+.eng-big > .vec-plate{padding:clamp(.4rem,1.2vw,.9rem)}
+.eng-big figcaption{margin-top:.4rem}
+.eng-stack > .text > p:last-child{margin-bottom:0}
+.eng-pair{margin-top:.4rem}
+.eng-big-s{max-width:820px}
+.eng-pair{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(1.2rem,3vw,3rem);align-items:start}
+.eng-pair .ot-unit-photo{margin:0}
+.eng-cols{columns:2;column-gap:clamp(1.5rem,4vw,3rem)}
+.eng-cols p{break-inside:avoid;margin-top:0}
+.eng-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:.6rem 0 0}
+.eng-stats div{border-top:2px solid var(--ink);padding-top:.45rem}
+.eng-stats dt{font-size:.8rem;color:var(--ink-2)}
+.eng-stats dd{margin:0;font-weight:700;font-size:1.3rem;font-variant-numeric:tabular-nums}
+@media (max-width:860px){.eng-pair{grid-template-columns:minmax(0,1fr)}.eng-cols{columns:1}}
+@media (max-width:520px){.eng-stats{grid-template-columns:1fr}}
 [data-view][hidden]{display:none}
 
 @media (max-width:900px){
@@ -1396,3 +1452,71 @@ html.i18n-wait body{visibility:hidden}
   .lang-switch button{border:1px solid var(--line);color:var(--ink);padding:.2rem .5rem}
 }
 @media (max-width:360px){ .nav{gap:.5rem} .nav a{font-size:.84rem} }
+
+/* the tools a project used: small icons with their names */
+.tools{list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.tools li{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;line-height:1;padding:.4rem .65rem;border:1px solid var(--line);border-radius:999px;background:var(--bg);white-space:nowrap}
+.tools img{width:16px;height:16px;display:block}
+.step .text > .tools{margin:-.4rem 0 1.1rem}
+/* in a report the chapter already lists the tools */
+.rp-secs .step .text > .tools{display:none}
+/* a section that matters most in its project */
+.step-key .eyebrow{display:inline-block;margin:0 0 .7rem;font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent,var(--blue))}
+.step-key{background:linear-gradient(var(--wash),var(--wash)) no-repeat;background-size:100% 100%;margin:0 calc(-1 * clamp(.8rem,2.5vw,1.6rem));padding-left:clamp(.8rem,2.5vw,1.6rem);padding-right:clamp(.8rem,2.5vw,1.6rem);border-radius:12px;border-top-color:transparent}
+
+/* RehaBalloon, "Teaching it to count": every recorded squeeze, interactive (js/29-squeeze.js) */
+.sq{margin:0}
+/* more room for the chart: a narrower text column in this section */
+@media (min-width:901px){.step-key:has(.sq){grid-template-columns:minmax(0,4fr) minmax(0,8fr)}}
+.sq-svg text{font-size:13px}
+.sq-svg .sq-lab{font-size:14px}
+.sq-svg .sq-ann text,.sq-svg .sq-trig-t,.sq-svg .sq-unit{font-size:12.5px}
+.sq-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:0 0 1rem}
+.sq-stats div{border-top:2px solid var(--ink);padding-top:.45rem}
+.sq-stats dt{font-size:.74rem;color:var(--ink-2);margin-bottom:.15rem}
+.sq-stats dd{margin:0;font-weight:700;font-size:.92rem;line-height:1.25}
+.sq-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;margin-bottom:.6rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--bg)}
+.seg button{font:inherit;font-size:.84rem;border:0;background:none;color:var(--ink);border-radius:999px;padding:.32rem .8rem;min-height:32px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sq-check{display:inline-flex;align-items:center;gap:.35rem;font-size:.84rem}
+.sq-play{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:999px;padding:.32rem .85rem;min-height:34px;cursor:pointer}
+.sq-play:hover{background:var(--ink);color:var(--bg)}
+.sq-now{font-size:.82rem;color:var(--ink-2)}
+.sq-plot{position:relative;background:var(--bg);border-radius:8px}
+.sq-svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.sq-svg:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.sq-svg .sq-raw path{fill:none;stroke-width:1;stroke-opacity:.16}
+.sq-svg .sq-band{fill-opacity:.14;stroke:none}
+.sq-svg .sq-mean{fill:none;stroke-width:2.5;stroke-linejoin:round}
+.sq-svg .sq-lab{fill:var(--ink);font-size:12px;font-weight:700}
+.sq-svg .sq-trig{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 4}
+.sq-svg .sq-trig-t,.sq-svg .sq-unit{fill:var(--ink-2);font-size:11px}
+.sq-svg .sq-ann text{fill:var(--ink);font-size:11.5px}
+.sq-svg .sq-dot{fill:var(--bg);stroke:var(--ink);stroke-width:2}
+.sq-svg .sq-lead{stroke:var(--ink);stroke-width:1}
+.sq-svg .sq-cross line{stroke:var(--ink);stroke-width:1}
+.sq-svg .sq-cross circle{stroke:var(--bg);stroke-width:2}
+.sq-svg .sq-playline{fill:none;stroke-width:2.5}
+.sq-tip{position:absolute;top:8px;min-width:10rem;pointer-events:none;background:var(--bg);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 18px rgba(15,25,35,.12);padding:.5rem .65rem;font-size:.8rem;line-height:1.35}
+.sq-tip-h{color:var(--ink-2);margin-bottom:.25rem}
+.sq-tip-r{display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.sq-tip-r b{font-size:.9rem}
+.sq-tip-r span:last-child{color:var(--ink-2)}
+.sq-key{display:inline-block;width:12px;height:2px;border-radius:1px}
+.sq-table{margin-top:.8rem;font-size:.84rem}
+.sq-table summary{cursor:pointer;color:var(--ink-2)}
+.sq-table table{width:100%;border-collapse:collapse;margin-top:.5rem;font-variant-numeric:tabular-nums}
+.sq-table th,.sq-table td{text-align:left;padding:.3rem .4rem;border-bottom:1px solid var(--line)}
+.sq-table th{font-weight:600;color:var(--ink-2)}
+.sq-pipe{list-style:none;margin:1.4rem 0 0;padding:0;counter-reset:q}
+.sq-pipe li{counter-increment:q;position:relative;padding:0 0 .9rem 2.2rem;font-size:.93rem;line-height:1.45;color:var(--ink-2)}
+.sq-pipe li::before{content:counter(q);position:absolute;left:0;top:0;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--accent,var(--ink));color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sq-pipe li:not(:last-child)::after{content:"";position:absolute;left:.72rem;top:1.6rem;bottom:.15rem;width:2px;background:var(--line)}
+.sq-pipe b{display:block;color:var(--ink);font-size:.95rem}
+@media (max-width:640px){.sq-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* the rebuilt dashboards say they are simulations */
+.sim-flag{max-width:none;display:flex;gap:.65rem;align-items:baseline;margin:0 0 .9rem;padding:.55rem .8rem;background:#fff8e6;border:1px solid #efd593;border-radius:8px;font-size:.85rem;line-height:1.45;color:var(--ink)}
+.sim-flag b{flex:none;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:4px;padding:.18rem .45rem}
