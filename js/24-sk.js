@@ -29,9 +29,19 @@
     A:["###","#.#","###","#.#","#.#"],B:["##.","#.#","##.","#.#","##."],C:["###","#..","#..","#..","###"],D:["##.","#.#","#.#","#.#","##."],E:["###","#..","##.","#..","###"],F:["###","#..","##.","#..","#.."],G:["###","#..","#.#","#.#","###"],H:["#.#","#.#","###","#.#","#.#"],I:["###",".#.",".#.",".#.","###"],K:["#.#","##.","#..","##.","#.#"],L:["#..","#..","#..","#..","###"],M:["#...#","##.##","#.#.#","#...#","#...#"],N:["#..#","##.#","#.##","#..#","#..#"],O:["###","#.#","#.#","#.#","###"],P:["###","#.#","###","#..","#.."],R:["##.","#.#","##.","#.#","#.#"],S:["###","#..","###","..#","###"],T:["###",".#.",".#.",".#.",".#."],U:["#.#","#.#","#.#","#.#","###"],V:["#.#","#.#","#.#","#.#",".#."],W:["#...#","#...#","#.#.#","##.##","#...#"],Y:["#.#","#.#",".#.",".#.",".#."]," ":["...","...","...","...","..."] };
   function pad(rows, n){ var p = new Array(n + 1).join("."); return rows.map(function(r){ return p + r + p; }); }
   function rider(frame, board){ return RIDER[frame].concat(BOARD[board]); }
-  // ---------- canvas, 2 screen pixels per game pixel
-  var S = 3, LW = 300, LH = 70, GROUND = 60, INK = "#535353", BG = "#f7f7f7", dpr = 1;
-  function size(){ var r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1); LW = Math.max(120, Math.floor(r.width / S)); cv.width = Math.round(LW * S * dpr); cv.height = Math.round(LH * S * dpr); ctx.setTransform(S * dpr, 0, 0, S * dpr, 0, 0); ctx.imageSmoothingEnabled = false; draw(); }
+  // ---------- canvas, about 3 CSS pixels per game pixel, rounded to a whole number of device pixels
+  // so every game pixel is the same size and stays sharp at any zoom (125%, 150%...)
+  var S = 3, LW = 300, LH = 70, GROUND = 60, INK = "#535353", BG = "#f7f7f7", sized = "";
+  function size(){
+    var w = cv.parentNode.clientWidth, dpr = window.devicePixelRatio || 1;
+    if (!w) return;   // the home page is hidden while a project is open: size it when it shows again
+    if (sized === w + "@" + dpr) return; sized = w + "@" + dpr;
+    var k = Math.max(1, Math.round(S * dpr));
+    LW = Math.max(120, Math.ceil(w * dpr / k));   // a fraction of a game pixel too wide: the frame crops it
+    cv.width = LW * k; cv.height = LH * k;
+    cv.style.width = (LW * k / dpr) + "px"; cv.style.height = (LH * k / dpr) + "px";
+    ctx.setTransform(k, 0, 0, k, 0, 0); ctx.imageSmoothingEnabled = false; draw();
+  }
   function sprite(rows, x, y, col){ ctx.fillStyle = col || INK; x = Math.round(x); y = Math.round(y); for (var j = 0; j < rows.length; j++) { var r = rows[j]; for (var i = 0; i < r.length; i++) if (r.charCodeAt(i) === 35) ctx.fillRect(x + i, y + j, 1, 1); } }
   function text(str, x, y, sc, col, align){ sc = sc || 1; var w = 0, chars = String(str).toUpperCase().split(""); chars.forEach(function(c){ w += ((FONT[c] || FONT[" "])[0].length + 1) * sc; }); if (align === "center") x -= w / 2; else if (align === "right") x -= w; ctx.fillStyle = col || INK; chars.forEach(function(c){ var g = FONT[c] || FONT[" "]; for (var j = 0; j < 5; j++) for (var i = 0; i < g[j].length; i++) if (g[j][i] === "#") ctx.fillRect(Math.round(x + i * sc), Math.round(y + j * sc), sc, sc); x += (g[0].length + 1) * sc; }); }
   // ---------- boards
@@ -142,5 +152,7 @@
   function setBoard(b){ board = b; try { localStorage.setItem("skate-board", b); } catch (e) {} sec.querySelectorAll("[data-board]").forEach(function(o){ o.setAttribute("aria-pressed", String(o.getAttribute("data-board") === b)); }); help.innerHTML = CFG[b].help; state = "ready"; paused = false; reset(); draw(); }
   sec.querySelectorAll("[data-board]").forEach(function(b){ b.addEventListener("click", function(){ setBoard(b.getAttribute("data-board")); cv.focus(); }); });
   window.addEventListener("resize", size);
+  // also when the frame changes size without a window resize: coming back to the home page, a scrollbar appearing
+  if ("ResizeObserver" in window) new ResizeObserver(size).observe(cv.parentNode);
   setBoard(board); size();
 })();

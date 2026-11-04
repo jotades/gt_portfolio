@@ -50,6 +50,8 @@ Scripts, in the order the page loads them:
 | `js/22-od.js` | OmniTrack, operator dashboard |
 | `js/23-work.js` | home: role filters and timeline |
 | `js/24-sk.js` | Passions, skateboard and snowboard game |
+| `js/25-news.js` | home: the "Latest" news ribbon above the work |
+| `js/26-type.js` | home: types out the hero title, letter by letter, on the first view |
 
 Parts still to be completed are in `<span class="todo">…</span>` (highlighted in blue on the site). Once there are none left, also remove the "Draft" notice at the bottom of `index.html`.
 

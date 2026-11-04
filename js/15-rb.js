@@ -1,7 +1,11 @@
 (function(){
   var root = document.getElementById("rb");
   if (!root) return;
-  var route = root.querySelector(".rb-route"), wrap = root.querySelector(".rb-route-wrap"), rulesEl = root.querySelector(".rb-rules"), con = root.querySelector(".rb-console"), info = root.querySelector(".rb-info");
+  var route = root.querySelector(".rb-route"), wrap = root.querySelector(".rb-route-wrap"), con = root.querySelector(".rb-console"), info = root.querySelector(".rb-info");
+  var pos = root.querySelector(".rb-pos"), prev = root.querySelector(".rb-prev"), next = root.querySelector(".rb-next");
+  var edTitle = root.querySelector(".rb-ed-title"), chips = root.querySelector(".rb-chips"), thumb = root.querySelector(".rb-ed-thumb");
+  // text the script writes is put together from short pieces, each translated on its own (js/00-i18n-it.js)
+  var T = function(s){ return window.i18n ? window.i18n.t(s) : s; };
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // a plain road with one carriageway to start; the program's own two example blocks break some of the rules below
   var blocks = [
@@ -187,20 +191,41 @@
     }
   }
   var NAMES = { Straight: "straight", Curve: "90° curve", Roadbends: "bends", Highway: "highway", None: "no junction", TCross: "T junction", Xcross: "crossroads", Roundabout: "roundabout", Immission: "merging lane", none: "no traffic", Medium: "medium traffic", High: "heavy traffic" };
-  function label(b, L){ var r = []; if (b.stop) r.push("stop"); if (b.priority) r.push("priority"); if (b.light) r.push("traffic light"); return "Block " + b.code + ": " + NAMES[b.road] + (L && L.turn ? (L.h === "E" ? (L.out === "N" ? " turning up" : " turning down") : " turning back to the right") : "") + ", " + b.ways + " carriageway" + (b.ways > 1 ? "s" : "") + " of " + b.lanes + " lane" + (b.lanes > 1 ? "s" : "") + ", " + NAMES[b.cross] + ", " + NAMES[b.traffic] + (r.length ? ", " + r.join(", ") : ""); }
+  function size(ways, lanes){ return ways + " carriageway" + (ways > 1 ? "s" : "") + " of " + lanes + " lane" + (lanes > 1 ? "s" : ""); }
+  // the block in a few short pieces, already translated: the chips in the editor and the tiles' labels
+  function parts(b, L){
+    var road = NAMES[b.road];
+    if (b.road === "Curve" && L && L.turn) road += L.h === "E" ? (L.out === "N" ? " turning up" : " turning down") : " turning back to the right";
+    var r = [road, size(b.ways, b.lanes), NAMES[b.cross], NAMES[b.traffic]];
+    if (b.stop) r.push("stop"); if (b.priority) r.push("priority"); if (b.light) r.push("traffic light");
+    return r.map(T);
+  }
+  function label(b, L){ return T("Block " + b.code) + ": " + parts(b, L).join(", "); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function line(b){ return "Block: CODE: " + b.code + " | N.corsie: " + b.lanes + " | N.Carreggiate: " + b.ways + " | TypeRoad: " + b.road + " | TypeCross: " + b.cross + " | IntensityTrafficLevel none-medium-high: " + b.traffic + " | Stop-T/F: " + (b.stop ? "True" : "False") + " | Priority-T/F: " + (b.priority ? "True" : "False") + " | TrafficLight-T/F: " + (b.light ? "True" : "False"); }
   var ORIGIN = { E: "0% 50%", N: "50% 100%", S: "50% 0%" };
   function render(){
     var L = layout(), minX = 0, maxX = 0, minY = 0, maxY = 0;
-    L.forEach(function(p){ minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y); });
+    // the + tile where the next block would go, after the last one
+    var last = L[L.length - 1], gx = last ? last.x + (last.out === "E" ? 1 : 0) : 0, gy = last ? last.y + (last.out === "N" ? -1 : last.out === "S" ? 1 : 0) : 0;
+    L.concat([{ x: gx, y: gy }]).forEach(function(p){ minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y); });
     route.style.width = ((maxX - minX + 1) * S) + "px"; route.style.height = ((maxY - minY + 1) * S) + "px";
-    route.innerHTML = blocks.map(function(b, i){ var p = L[i]; return '<button type="button" class="rb-tile' + (i === sel ? " sel" : "") + (i === fresh && !reduce ? " new" : "") + '" style="left:' + ((p.x - minX) * S) + "px;top:" + ((p.y - minY) * S) + "px;transform-origin:" + ORIGIN[p.h] + '" role="option" aria-selected="' + (i === sel) + '" data-i="' + i + '" aria-label="' + label(b, p) + '" tabindex="-1">' + tile(b, p) + "</button>"; }).join("");
+    route.innerHTML = blocks.map(function(b, i){ var p = L[i]; return '<button type="button" class="rb-tile' + (i === sel ? " sel" : "") + (i === fresh && !reduce ? " new" : "") + '" style="left:' + ((p.x - minX) * S) + "px;top:" + ((p.y - minY) * S) + "px;transform-origin:" + ORIGIN[p.h] + '" role="option" aria-selected="' + (i === sel) + '" data-i="' + i + '" aria-label="' + esc(label(b, p)) + '" tabindex="-1">' + tile(b, p) + "</button>"; }).join("")
+      + '<button type="button" class="rb-ghost" style="left:' + ((gx - minX) * S) + "px;top:" + ((gy - minY) * S) + 'px" aria-hidden="true" tabindex="-1" title="' + esc(T("Add a block at the end of the road")) + '"><span>+</span></button>';
     fresh = -1;
-    con.textContent = blocks.map(line).join("\n");
+    con.innerHTML = blocks.map(function(x, i){ return '<span class="' + (i === sel ? "on" : "") + '">' + esc(line(x)) + "</span>"; }).join("\n");
     var b = blocks[sel];
-    info.textContent = b ? label(b, L[sel]) + "." : "No blocks. Add one to start the road.";
-    var reasons = [];
-    function note(o, r){ o.disabled = !!r; o.title = r ? "Not here: " + r : ""; if (r && reasons.indexOf(r) < 0) reasons.push(r); }
+    info.textContent = b ? label(b, L[sel]) + "." : T("No blocks. Add one to start the road.");
+    pos.textContent = b ? T("Block " + (sel + 1) + " of " + blocks.length) : T("No blocks yet");
+    prev.disabled = !b || sel === 0; next.disabled = !b || sel === blocks.length - 1;
+    edTitle.textContent = b ? T("Block #" + b.code) : T("No blocks yet");
+    chips.innerHTML = b ? parts(b, L[sel]).map(function(p){ return "<li>" + esc(p) + "</li>"; }).join("") : "";
+    thumb.innerHTML = b ? tile(b, L[sel]) : "";
+    root.querySelector(".rb-editor").classList.toggle("empty", !b);
+    // each group lists, under its own options, why some of them are off
+    var reasons = new Map();
+    root.querySelectorAll(".rb-class").forEach(function(g){ reasons.set(g, []); });
+    function note(o, r){ o.disabled = !!r; o.title = r ? T("Not here") + ": " + T(r) : ""; var list = reasons.get(o.closest(".rb-class")); if (r && list && list.indexOf(r) < 0) list.push(r); }
     root.querySelectorAll(".rb-opts[data-k]").forEach(function(gp){ var k = gp.getAttribute("data-k"); gp.querySelectorAll("button").forEach(function(o){ var v = o.getAttribute("data-v"), on = String(b ? b[k] : "") === v; o.setAttribute("aria-pressed", String(on)); if (!b) { o.disabled = true; return; } note(o, on ? "" : why(sel, k, v)); }); });
     root.querySelectorAll("[data-r]").forEach(function(o){ var k = o.getAttribute("data-r"), on = !!(b && b[k]); o.setAttribute("aria-pressed", String(on)); if (!b) { o.disabled = true; return; } note(o, on ? "" : why(sel, k, true)); });
     var dirBox = root.querySelector(".rb-dir"), Lc = b && L[sel];
@@ -209,7 +234,7 @@
       var eff = Lc.h === "E" ? (Lc.out === "N" ? "up" : "down") : "right";
       dirBox.querySelectorAll("button").forEach(function(o){ var v = o.getAttribute("data-d"); o.setAttribute("aria-pressed", String(v === eff)); var r = v === eff ? "" : Lc.h === "E" ? (v === "right" ? "the road is already heading right" : "") : "after going " + (Lc.h === "N" ? "up" : "down") + ", the next curve turns back to the right"; note(o, r); });
     }
-    rulesEl.textContent = reasons.length ? "Not available for this block: " + reasons.join(" · ") + "." : "";
+    reasons.forEach(function(list, g){ g.querySelector(".rb-why").innerHTML = list.length ? "<b>" + esc(T("Not available here")) + "</b><ul>" + list.map(function(r){ return "<li>" + esc(T(r)) + "</li>"; }).join("") + "</ul>" : ""; });
     root.querySelector(".rb-del").disabled = !b;
     var tEl = route.children[sel];
     if (tEl) setTimeout(function(){ var l = tEl.offsetLeft, tp = tEl.offsetTop; if (l < wrap.scrollLeft || l + S > wrap.scrollLeft + wrap.clientWidth || tp < wrap.scrollTop || tp + S > wrap.scrollTop + wrap.clientHeight) wrap.scrollTo({ left: Math.max(0, l - wrap.clientWidth / 2 + S / 2), top: Math.max(0, tp - wrap.clientHeight / 2 + S / 2), behavior: reduce ? "auto" : "smooth" }); }, 40);
@@ -234,7 +259,12 @@
   root.querySelectorAll("[data-d]").forEach(function(o){ o.addEventListener("click", function(){ if (o.disabled || !blocks[sel]) return; var v = o.getAttribute("data-d"); if (v !== "right") blocks[sel].dir = v; render(); }); });
   root.querySelector(".rb-add").addEventListener("click", add);
   root.querySelector(".rb-del").addEventListener("click", del);
-  route.addEventListener("click", function(e){ var tEl = e.target.closest("[data-i]"); if (tEl) { sel = +tEl.getAttribute("data-i"); render(); } });
+  route.addEventListener("click", function(e){
+    if (e.target.closest(".rb-ghost")) { sel = blocks.length - 1; add(); return; }
+    var tEl = e.target.closest("[data-i]"); if (tEl) { sel = +tEl.getAttribute("data-i"); render(); }
+  });
+  prev.addEventListener("click", function(){ if (sel > 0) { sel--; render(); } });
+  next.addEventListener("click", function(){ if (sel < blocks.length - 1) { sel++; render(); } });
   route.addEventListener("keydown", function(e){
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); sel = Math.max(0, Math.min(blocks.length - 1, sel + (e.key === "ArrowRight" ? 1 : -1))); render(); }
     else if (e.key === "Delete" || e.key === "Backspace") { e.preventDefault(); del(); }
