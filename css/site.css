@@ -639,7 +639,7 @@ td.num,th.num{text-align:right;padding-right:1rem}
 @media (prefers-reduced-motion:reduce){.leg-btn.vib .bl-box-in{animation:none}}
 .bal-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
 .bal-strip figure{margin:0}
-.bal-strip img{width:100%;height:auto;display:block;border-radius:4px}
+.bal-strip img{width:100%;aspect-ratio:3/4;height:auto;object-fit:cover;object-position:50% 60%;display:block;border-radius:4px}
 .bal-strip figcaption{font-size:.8rem;color:var(--ink-2);margin-top:.35rem}
 .bal-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
 .bal-pair figure{margin:0}
@@ -1474,7 +1474,7 @@ html.i18n-wait body{visibility:hidden}
 .step-key{background:linear-gradient(var(--wash),var(--wash)) no-repeat;background-size:100% 100%;margin:0 calc(-1 * clamp(.8rem,2.5vw,1.6rem));padding-left:clamp(.8rem,2.5vw,1.6rem);padding-right:clamp(.8rem,2.5vw,1.6rem);border-radius:12px;border-top-color:transparent}
 
 /* RehaBalloon, "Teaching it to count": every recorded squeeze, interactive (js/29-squeeze.js) */
-.sq{margin:0}
+.sq{margin:0;align-self:start}
 /* more room for the chart: a narrower text column in this section */
 @media (min-width:901px){.step-key:has(.sq){grid-template-columns:minmax(0,4fr) minmax(0,8fr)}}
 .sq-svg text{font-size:13px}
@@ -1650,3 +1650,73 @@ html.i18n-wait body{visibility:hidden}
 .sv-tip{position:absolute;z-index:3;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.78rem;padding:.3rem .55rem;border-radius:5px;white-space:nowrap}
 @media (max-width:900px){.sv-body{grid-template-columns:minmax(0,1fr)}.sv-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.sv-note{grid-column:1/-1}.sv-big b{font-size:1.7rem}}
 @media (max-width:620px){.sv-qs{grid-template-columns:minmax(0,1fr)}}
+
+/* WashB FEM cards (js/35-wb-fem.js) */
+.fem{margin:0}
+.fem-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:clamp(.8rem,2vw,1.2rem);display:flex;flex-direction:column;gap:.8rem}
+.fem-svg,.fem-bullet{display:block;width:100%;height:auto;font-family:var(--font)}
+.fem-slide{display:flex;align-items:center;gap:.7rem;font-size:.86rem;color:var(--ink-2)}
+.fem-slide input{flex:1;accent-color:#3fa9b5}
+.fem-slide b{color:var(--ink);font-variant-numeric:tabular-nums;min-width:4.2em;text-align:right}
+.fem-foot{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1rem;align-items:center;border-top:1px solid var(--line);padding-top:.8rem}
+.fem-leg{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.fem-ramp{display:block;width:90px;height:8px;border-radius:2px;background:linear-gradient(90deg,#1a2bd6,#19b8e8,#2fd12f,#f2e11d,#e3241b)}
+.fem-leg-v{flex-direction:column;justify-content:space-between;align-self:stretch;gap:.3rem}
+.fem-leg-v .fem-ramp{width:10px;height:auto;flex:1;min-height:120px;background:linear-gradient(0deg,#1a2bd6,#19b8e8,#2fd12f,#f2e11d,#e3241b)}
+.fem-stats{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.fem-stats li{display:flex;align-items:baseline;gap:.6rem;font-size:.84rem;color:var(--ink-2)}
+.fem-stats b{font-size:1.15rem;font-stretch:115%;color:var(--ink);min-width:4.6em;font-variant-numeric:tabular-nums}
+.fem-stats-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fem-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.4rem .8rem}
+.fem-top .cx-seg{margin:0}
+.fem-load{font-size:.8rem;color:var(--ink-2)}
+.fem-view{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:stretch}
+.fem-shot{position:relative}
+.fem-shot img{display:block;width:100%;height:auto;max-width:none;padding:0;margin:0;border-radius:4px}
+.fem-shot img[hidden],.fem-shot svg[hidden],.fem-leg-v[hidden]{display:none}
+.fem-note{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;font-family:var(--font)}
+.fem-pick{display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+.fem-pick .cx-seg{margin:0}
+.fem-pick .fem-shot{width:100%;max-width:320px}
+.fem-side{margin:1.2rem 0 0}
+.fem-side .plate img{max-height:220px;object-fit:contain}
+@media (max-width:620px){.fem-foot{grid-template-columns:minmax(0,1fr)}.fem-stats-row{grid-template-columns:minmax(0,1fr)}}
+
+/* balancing device: 2022 prototype against a version today */
+.bal-next th[scope="col"]{font-size:.8rem;color:var(--ink-2);font-weight:600;text-align:left}
+.bal-next td{vertical-align:top}
+.bal-next td:last-child{color:var(--ink)}
+.bal-today{border-top:1px dashed var(--line);padding-top:1.4rem;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:.4rem clamp(1.2rem,3vw,3rem);align-items:start}
+.bal-today > h3{grid-column:1/-1;margin:0}
+.bal-today > p{margin:0}
+@media (max-width:900px){.bal-today{grid-template-columns:minmax(0,1fr)}}
+
+/* image zoom on hover, project pages (js/36-img-zoom.js moves the origin with the pointer) */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  main[data-view]:not([data-view="home"]) .plate > img,.fem-shot img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  main[data-view]:not([data-view="home"]) .plate > img:hover,.fem-shot img:hover{transform:scale(1.08)}
+  .fem-shot{overflow:hidden;border-radius:4px}
+}
+
+/* click to zoom (js/37-zoom.js): "+" and "-" pointers, the element moved to the middle, the page dimmed behind */
+html[data-zcur="in"],html[data-zcur="in"] *{cursor:zoom-in !important}
+html[data-zcur="out"],html[data-zcur="out"] *{cursor:zoom-out !important}
+.is-zoom{position:relative;z-index:1001;transform-origin:center center;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.is-zoom[style*="scale"]{box-shadow:0 24px 60px rgba(15,25,35,.22)}
+.plate.is-zoom > img:hover,.fem-shot.is-zoom img:hover{transform:none}
+.zm-back{position:fixed;inset:0;z-index:1000;background:rgba(246,248,250,.92);opacity:0;transition:opacity .45s}
+.zm-back.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.is-zoom,.zm-back{transition:none}}
+.sq.is-zoom{background:var(--wash);border-radius:6px;box-shadow:0 0 0 14px var(--wash),0 24px 60px rgba(15,25,35,.22)}
+.bal-ref{max-width:none;margin:1rem 0 0;padding:.8rem 1rem;background:var(--wash);border-left:3px solid var(--accent,var(--blue));border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.5}
+.bal-cite{display:block;margin-top:.45rem;font-size:.76rem;color:var(--ink-2)}
+.card .plate .design.logo-preview.logo-bal{display:block;width:100%;height:100%;padding:6% 12%;box-sizing:border-box}
+.tl-thumb svg{width:100%;height:100%;padding:12%;box-sizing:border-box}
+.card .plate .design.logo-rb{padding:14% 18%}
+
+/* PhiCube app: Games and Tests locked until a patient is chosen (js/05-pc-proto.js) */
+.app-tab.is-locked{opacity:.42;cursor:not-allowed}
+.app-tab.is-locked::after{content:"";position:absolute;top:18%;right:22%;width:max(9px,.9cqw);height:max(9px,.9cqw);background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='7' width='10' height='8' rx='1.5' fill='%233a4449'/%3E%3Cpath d='M5 7V5a3 3 0 0 1 6 0v2' fill='none' stroke='%233a4449' stroke-width='1.6'/%3E%3C/svg%3E")}
+.pc-nudge{animation:pc-nudge .7s ease-out}
+@keyframes pc-nudge{0%,100%{box-shadow:inset 0 0 0 .1cqw var(--line)}30%,70%{box-shadow:inset 0 0 0 .35cqw var(--teal)}}
+@media (prefers-reduced-motion:reduce){.pc-nudge{animation:none;box-shadow:inset 0 0 0 .35cqw var(--teal)}}

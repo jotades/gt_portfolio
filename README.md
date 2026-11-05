@@ -30,7 +30,7 @@ Scripts, in the order the page loads them:
 | `js/02-sim.js` | RehaBalloon, balloon simulator |
 | `js/03-pc-proto.js` | PhiCube, prototypes (patient and therapist) |
 | `js/04-core-fig.js` | RehaBalloon, 3D cross-section view |
-| `js/05-pc-proto.js` | PhiCube, prototypes (patient and therapist) |
+| `js/05-pc-proto.js` | PhiCube, prototypes (patient and therapist). Games and Tests stay locked until a patient is selected (a second click on the patient deselects them); Save checks that the cube has an orientation and at least one accessory |
 | `js/06-ard-sim.js` | Arduino lesson, simulator |
 | `js/07-bk-view.js` | Blender lesson, baking viewer |
 | `js/08-blend-zip.js` | Blender lesson, .blend file download |
@@ -60,6 +60,9 @@ Scripts, in the order the page loads them:
 | `js/32-wb-flow.js` | WashB, "Research": the flow from cleaning teeth through brushing and flossing and their problems to ultrasound, drawn as vectors at the width of the page; pointing at a node highlights its flows. The band widths (`PROBLEMS`) are qualitative, taken from the original diagram |
 | `js/33-ot-adapt.js` | OmniTrack, "Future work": smoothing that adapts to movement. A simulated 30 s session (input signals from the IMU and UWB) and a small MLP, trained offline on synthetic data, that predicts the smoothing α at each sample; two tabs, three time windows, fixed and adaptive α compared. A switch under the title swaps text and explorer to "Neural calibration": three options under study (deep regressor before multilateration, end-to-end network, physics-informed network), each as a diagram against today's pipeline; option 2 has the study room, where a wall reflection on one anchor can be added and the tag moved |
 | `js/34-wb-survey.js` | WashB, "Research": the questionnaire answered by 86 people (thesis, pages 60–64), one stacked bar per question in three tabs (brushing, flossing, hygienist and pain), with the key figures beside; the flossing tab also has the questions on people who gave up flossing, from the project presentation |
+| `js/35-wb-fem.js` | WashB, "Engineering": the two FEM checks of the thesis as cards. Squeezer: its real outline (traced from the model) closing as the lip-force slider grows, the force–displacement curve read from the Abaqus chart, and the original mesh, loads and displacement renders. Case: model with the loaded hinges and the fixtures labelled, stress and displacement renders with a legend, and the stress margin against the allowable. The renders are the full-resolution images extracted from the thesis PDF |
+| `js/36-img-zoom.js` | project pages: an image zooms in gently while the pointer is over it, towards the point under the pointer (with a mouse only, not with reduced motion). The zoom is in `css/site.css`; this script only moves its origin |
+| `js/37-zoom.js` | project pages: click to zoom. Over the grey background of an interactive section (not over its controls, charts or cards), or over an image or a diagram, the pointer becomes "+"; a click moves the element to the middle of the screen, enlarged, with the page dimmed. The pointer becomes "−": a click, Esc, a click outside or scrolling puts it back in place. The element is moved with a CSS transform, so demos keep working while enlarged. Mouse only; elements that cannot grow by at least 8% (the tallest dashboards) are left alone. The interactive sections are listed in `PANELS`; a section can say which part of it zooms with `data-zoom="selector"` ("Teaching it to count": its whole grey band zooms the interactive figure) |
 
 Parts still to be completed are in `<span class="todo">…</span>` (highlighted in blue on the site). Once there are none left, also remove the "Draft" notice at the bottom of `index.html`.
 

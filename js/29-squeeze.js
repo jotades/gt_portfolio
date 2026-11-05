@@ -108,7 +108,7 @@
       r.appendChild(key); r.appendChild(b); r.appendChild(s); tip.appendChild(r);
     });
     tip.hidden = false;
-    var box = svg.getBoundingClientRect(), px = x(i) / W * box.width;
+    var box = { width: svg.clientWidth || svg.getBoundingClientRect().width }, px = x(i) / W * box.width;   // layout width: right also when the chart is zoomed
     tip.style.left = Math.min(Math.max(px + 12, 0), box.width - tip.offsetWidth - 4) + "px";
     if (px + 12 + tip.offsetWidth > box.width) tip.style.left = Math.max(0, px - tip.offsetWidth - 12) + "px";
   }
