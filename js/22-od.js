@@ -121,7 +121,43 @@
     });
   }
   var last = 0, acc = 0;
-  function frame(now){ var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now; tick(dt); acc += dt; if (acc > 0.5) { acc = 0; live(); } room(); requestAnimationFrame(frame); }
+  function frame(now){ var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now; if (!(demo && !inView)) tick(dt); acc += dt; if (acc > 0.5) { acc = 0; live(); } room(); requestAnimationFrame(frame); }
+  // ---------- demo: the first time the dashboard comes into view it runs a session by itself (scan, connect,
+  // a learning task on one route, then the next), so a reader scrolling past sees it working. It pauses out of
+  // view, and stops for good at the first click or key inside the dashboard, which is then the reader's.
+  // Not with reduced motion: there the dashboard waits, as before.
+  var demo = false, inView = false, demoTimer = 0, demoDone = false, badge = null, DEMO = [["D", "auditory_on_person_intes"], ["A", "haptic_on_person_intes"], ["G", "auditory_external"], ["C", "haptic_external"]], demoN = 0;
+  function demoStep(){
+    if (!demo) return;
+    if (task) { demoTimer = setTimeout(demoStep, 1000); return; }
+    var r = DEMO[demoN++ % DEMO.length];
+    ps.value = r[0]; q('[data-o="cond"]').value = r[1]; q('[data-o="task"]').value = "learning"; q('[data-a="start"]').textContent = "Start learning";
+    startTask(); demoTimer = setTimeout(demoStep, 2500);
+  }
+  function demoStart(){
+    if (demo || demoDone || reduce) return;
+    demo = true;
+    badge = document.createElement("span"); badge.className = "od-demo";
+    badge.innerHTML = '<i aria-hidden="true"></i><span>' + (window.i18n ? window.i18n.t("Demo running") : "Demo running") + '</span><button type="button">' + (window.i18n ? window.i18n.t("Stop") : "Stop") + "</button>";
+    q(".od-pills").appendChild(badge);
+    badge.querySelector("button").addEventListener("click", function(){ demoStop(); });
+    log("demo: a session runs by itself · click anywhere in the dashboard to take over");
+    var lt = q('[data-lt="P1"]'); if (lt) lt.click();   // the live data of the person who walks
+    var need = DEV.some(function(k){ return !conn[k]; });
+    if (need) { q('[data-a="scan"]').click(); demoTimer = setTimeout(demoStep, reduce ? 300 : 2600); } else demoStep();
+  }
+  function demoStop(){
+    if (!demo) return;
+    demo = false; demoDone = true; clearTimeout(demoTimer);
+    if (badge) { badge.remove(); badge = null; }
+    log("demo stopped · the dashboard is yours");
+  }
+  // a real click or key press hands the dashboard to the reader (the demo's own clicks are not trusted events)
+  ["pointerdown", "keydown"].forEach(function(ev){ root.addEventListener(ev, function(e){ if (demo && e.isTrusted && !(badge && badge.contains(e.target))) demoStop(); }, true); });
+  if ("IntersectionObserver" in window) {
+    // in view: a good part of it, or half the screen when it is taller than the screen (phones)
+    new IntersectionObserver(function(es){ es.forEach(function(e){ var vh = e.rootBounds ? e.rootBounds.height : window.innerHeight; inView = e.isIntersecting && (e.intersectionRatio >= 0.35 || e.intersectionRect.height >= 0.5 * vh); if (inView) demoStart(); }); }, { threshold: [0, 0.1, 0.2, 0.35, 0.5] }).observe(root);
+  }
   log("dashboard ready · anchors from OMNIROOM.config");
   room(); devs(); pills(); requestAnimationFrame(frame);
 })();

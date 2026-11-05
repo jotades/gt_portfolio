@@ -12,7 +12,7 @@
 
   // every project: its year, and what it was together with the problem it tackled
   var PROJECTS = {
-    "omnitrack": ["2023–26", "OmniTrack is my PhD: an IoT platform that locates people indoors with ultra-wideband radio and turns their movement into light, sound and vibration. The problem it tackles: learning a route and finding landmarks indoors without relying on sight."],
+    "omnitrack": ["2023–26", "OmniTrack is my PhD: an IoT platform that locates people indoors with ultra-wideband radio and turns their movement into light, sound and vibration. The problem it tackles: supporting navigation training in a controlled indoor environment."],
     "phicube": ["2024", "PhiCube is a cube-shaped rehabilitation device; its app lets therapists set up each patient’s therapy and patients train by playing games. The problem: one interface that works for both, and stays calm for patients in therapy."],
     "washb": ["2020", "WashB, my MSc thesis, is a mouthpiece that cleans teeth with ultrasound. The problem: a good clean still depends on how skilfully, and how often, people brush."],
     "steering-wheel": ["2022–23", "Rip@rto is a driving simulator that assesses the driving capabilities of people with disability. The problem: measuring each ability on its own, with forces on the wheel that are known rather than guessed."],
@@ -35,21 +35,21 @@
       ["washb", [1, 2], "Here because it starts from discovery: research and a survey first, then four requirements that judged every design decision."]
     ],
     eng: [
-      ["omnitrack", [1, 3, 4, 5], "Here for the whole technical chain: hardware, firmware and ROS 2, a calibration chosen on held-out error, and the analysis of the data."],
+      ["omnitrack", [1, 2, 3, 4, 5, 7], "Here for the whole technical chain: hardware, firmware and ROS 2, a calibration chosen on held-out error, the analysis of the data, and where it goes next with neural networks."],
       ["rehaballoon", [3, 2, 5], "Here for machine learning at the edge: a model trained on recorded sensor data that runs on the board itself."],
       ["steering-wheel", [4, 6, 3], "Here for measurement: the hardware did not report torque, so I built a calibration that turns its raw values into newton-metres."],
       ["balance-device", [3, 4], "Here for sensor logic kept to the minimum: two sensors that tell a good repetition from a bad one."]
     ],
     design: [
-      ["washb", [1, 3, 5], "Here because research shaped the brief before any sketch, and the product reaches its user through an app."],
+      ["washb", [1, 3, 5], "Here because research shaped the brief before any sketch, and the product reaches its user through an app with its own visual language."],
       ["omnitrack", [2, 5], "Here for an interface for expert users with a dense, multi-step workflow, and a study run with users."],
       ["phicube", [2, 1], "Here for a visual system built for one audience, patients in therapy, and documentation that tells developers how each screen behaves."],
       ["balance-device", [2, 4], "Here for the process: a persona and a problem story set what the prototype had to do, and it was built and tested within two weeks."],
-      ["red-6-3", [1, 4], "Here for framing: the problem defined before the product, and the service seen from the rider’s side."],
+      ["red-6-3", [1, 3, 4], "Here for framing: the problem defined before the product, sketches that explore the robot, and the service seen from the rider’s side, with the visual language of its app."],
       ["steering-wheel", [2], "Here for a tool that lets the test scenarios be built out of simple, configurable blocks."]
     ],
     industrial: [
-      ["washb", [3, 6], "Here for a product resolved down to its engineering: ultrasonic transducers, a medical-grade material and an FEM check."],
+      ["washb", [1, 3, 6], "Here for a product grounded in a survey of 86 people and resolved down to its engineering: ultrasonic transducers, a medical-grade material and an FEM check."],
       ["d-baseplate", [2, 5], "Here for material selection, and FEM used to choose a safe thickness and compare three shapes."],
       ["spacer", [1, 4], "Here for the analysis of an existing product, and an assembly detailed for production."],
       ["red-6-3", [3, 5], "Here for a machine designed from its volumes down to its charging mechanism."],
@@ -73,7 +73,7 @@
       ["red-6-3", [5], "Here for a charging contact that closes only on the right pins."]
     ],
     "s-data": [
-      ["omnitrack", [3, 5, 6], "Here for a calibration chosen on held-out error, data from a study, and results read within their limits."],
+      ["omnitrack", [3, 5, 6, 7], "Here for a calibration chosen on held-out error, data from a study, results read within their limits, and the next steps with neural networks."],
       ["rehaballoon", [3], "Here for a neural network trained on recorded sensor data."],
       ["steering-wheel", [4, 6], "Here for a torque calibration built from known weights."],
       ["d-baseplate", [2, 5], "Here for an FEM model, and stiffness compared across three shapes."],
@@ -88,14 +88,14 @@
     ],
     "s-research": [
       ["omnitrack", [5, 6], "Here for a study with sixteen blind and visually impaired adults, and a careful reading of its results."],
-      ["washb", [1], "Here for a benchmark and a survey that shaped the brief."],
+      ["washb", [1], "Here for a benchmark and a survey of 86 people that shaped the brief."],
       ["balance-device", [2], "Here for a persona and a problem story."],
       ["red-6-3", [1], "Here for framing the problem before the product."],
       ["spacer", [1], "Here for the analysis of an existing grinder."],
       ["steering-wheel", [1], "Here for tests that each measure one driving ability."]
     ],
     "s-make": [
-      ["washb", [3, 6], "Here for a product taken from concept to engineering, with its material checked by FEM."],
+      ["washb", [1, 3, 6], "Here for a product taken from a survey of 86 people to concept and engineering, with its material checked by FEM."],
       ["red-6-3", [3, 5], "Here for a machine designed from its volumes down to its charging contact."],
       ["spacer", [3, 4], "Here for a concept and its full assembly, detailed for production."],
       ["d-baseplate", [1, 5], "Here for a part shaped with FEM."],
@@ -134,7 +134,10 @@
     ch.innerHTML = '<header class="rp-head"><span class="rp-k">' + (i < 9 ? "0" : "") + (i + 1) + '</span><h2>' + esc(name) + '</h2><span class="rp-year">' + PROJECTS[id][0] + "</span></header>" +
       '<p class="rp-intro">' + esc(T(PROJECTS[id][1])) + "</p>" + (g[2] ? '<p class="rp-why">' + esc(T(g[2])) + "</p>" : "") +
       (window.SITE_TOOLS ? window.SITE_TOOLS.chips(id) : "") + '<div class="rp-top"></div><div class="rp-secs"></div>';
-    var top = TOP[id] && main.querySelector(TOP[id]);
+    // a prototype that belongs to one of the sections shown (an app inside its "App" section) stays there,
+    // next to the text that talks about it, instead of opening the chapter
+    var top = TOP[id] && main.querySelector(TOP[id]), home = top && top.closest("section.step"), hn = home && home.querySelector("h2 .n");
+    if (top && hn && g[1].indexOf(+hn.textContent.trim()) >= 0) top = null;
     if (top) move(top, ch.querySelector(".rp-top")); else ch.querySelector(".rp-top").remove();
     var secs = ch.querySelector(".rp-secs");
     g[1].forEach(function(k){
@@ -161,9 +164,10 @@
     cur = key + "/" + (sel || "");
     report.innerHTML = ""; toc.innerHTML = "";
     var chs = pick(key, sel).map(chapter).filter(Boolean);
-    // a selection sent in a link: no filters, just the chosen chapters and a way to the whole report
+    // a selection sent in a link: no filters and no page title; the sentence of the home page and the latest news open it
     page.classList.toggle("is-picked", !!sel);
-    var all = page.querySelector(".rp-all"); all.hidden = !sel; all.querySelector("a").setAttribute("href", "#for/" + key);
+    var news = document.getElementById("news");
+    if (sel && news) move(news, page.querySelector(".for-news"));
     chs.forEach(function(c, i){
       report.appendChild(c.el);
       toc.insertAdjacentHTML("beforeend", '<li><button type="button" data-ch="' + i + '"><span class="rp-k">' + (i < 9 ? "0" : "") + (i + 1) + "</span>" + esc(c.name) + "</button></li>");

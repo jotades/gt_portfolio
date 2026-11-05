@@ -414,7 +414,8 @@
   <div class="wrap">
     <header class="project-head">
       <a class="back" href="#work">All work</a>
-      <h1>Work by role</h1>
+      <h1 class="for-title">Work by role</h1>
+      <h1 class="for-quote">There are no boundaries between disciplines, only frontiers we stubbornly insisted on drawing.</h1>
       <p class="lede">Pick a role or a sector. Each chapter is one project: what it was, the problem it tackled and why it matters for that role, then its digital prototype and the parts of it that show it.</p>
     </header>
     <div class="role-bar" role="group" aria-label="Role">
@@ -434,9 +435,9 @@
       <button type="button" data-for="s-make" aria-pressed="false">Design and engineering</button>
     </div>
     <p class="role-note for-note" aria-live="polite"></p>
+    <div class="for-news"></div>
     <nav class="rp-toc" aria-label="In this report"><span class="role-lab">In this report</span><ol></ol></nav>
     <div class="rp"></div>
-    <p class="rp-all" hidden><a class="card-cta" href="#for/product">See the whole report for this role <span aria-hidden="true">→</span></a></p>
   </div>
 </main>
 
@@ -465,9 +466,25 @@
         <p>The answer I explored was ultrasound, which can break up biofilm even in the hardest-to-reach areas of the mouth.</p>
       </div>
       <figure>
-        <div class="plate"><img src="assets/img/washb_research.webp" alt="Diagram linking the problems of brushing and flossing to an ultrasound-based solution" loading="lazy"></div>
+        <div class="plate wb-flow-plate"><svg class="wb-flow" role="group" aria-label="Diagram linking the problems of brushing and flossing to an ultrasound-based solution"></svg></div>
         <figcaption>From the problems of brushing and flossing to an ultrasound-based solution.</figcaption>
       </figure>
+      <div class="cx sv wide" id="sv">
+        <div class="sv-head">
+          <h3>The survey: 86 people</h3>
+          <p>Fourteen questions on brushing, flossing and the dental hygienist, about six minutes each.</p>
+        </div>
+        <div class="cx-tabs" role="tablist" aria-label="Survey">
+          <button type="button" role="tab" data-sv="brush" aria-selected="true">Brushing</button>
+          <button type="button" role="tab" data-sv="floss" aria-selected="false">Flossing</button>
+          <button type="button" role="tab" data-sv="hyg" aria-selected="false">Hygienist and pain</button>
+        </div>
+        <div class="sv-body">
+          <div class="sv-key"></div>
+          <ul class="sv-qs"></ul>
+        </div>
+        <div class="sv-tip" hidden></div>
+      </div>
     </section>
 
     <section class="step">
@@ -519,8 +536,39 @@
         <h2><span class="n">5</span>The app</h2>
         <p>The companion app pairs with the charging case, follows each cleaning in real time and keeps a record the user can share with their dentist.</p>
         <p>The prototype here is rebuilt from the app’s Unity project: the 3D arches with sixteen zones each, which the user taps to mark where more care is needed; the Top and Down views; the 3D scan that replaces the default arches with the user’s own; the dentist; and a short history of the toothbrush.</p>
+        <h3>Visual language</h3>
+        <p>Deep navy and teal, the colours of the WashB logo, on a pale surface. A wave separates each screen’s header from its content, the icons are drawn with a single line, and a rounded teal bar at the bottom always leads home. Teal and red mark where the device should clean and where it should not.</p>
+        
       </div>
-      <div></div>
+      <figure class="vl-fig">
+        <div class="vl vl-wb">
+          <div class="vl-wb-head">
+            <svg class="vl-wave" viewBox="0 0 320 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H320V58C250 96 170 40 96 70C58 85 24 82 0 74Z" fill="#1f3a5a"/><path d="M0 74C24 82 58 85 96 70C170 40 250 96 320 58V66C250 104 170 48 96 78C58 93 24 90 0 82Z" fill="#3fa9b5"/></svg>
+            <span class="vl-wb-title">Dashboard</span>
+            <svg class="vl-leaf" viewBox="0 0 64 48" aria-hidden="true"><path d="M32 44C20 40 12 28 14 10C26 16 34 28 32 44Z" fill="#63b5b2" opacity=".9"/><path d="M32 44C44 40 52 28 50 10C38 16 30 28 32 44Z" fill="#3fa9b5" opacity=".9"/><path d="M32 46C24 44 8 40 2 30C14 26 26 34 32 46ZM32 46C40 44 56 40 62 30C50 26 38 34 32 46Z" fill="#fff" opacity=".55"/></svg>
+          </div>
+          <div class="vl-row vl-icons" aria-label="Icons">
+            <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26h22M8 22v-5M14 22v-9M20 22v-6M26 22V8M7 14l6-5 6 4 8-7"/></svg>Progress</span>
+            <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 5c-4 0-6 4-5 9 1 4 2 8 3 12 1 2 3 2 4 0l2-6c1-2 3-2 4 0l2 6c1 2 3 2 4 0 1-4 2-8 3-12 1-5-1-9-5-9-3 0-4 2-6 2s-3-2-6-2z"/></svg>Teeth</span>
+            <span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="10" r="5"/><path d="M6 28c0-6 4-10 10-10s10 4 10 10M12 19v4a2 2 0 0 0 4 0M22 19v3"/><circle cx="22" cy="24" r="2"/></svg>Doctor</span>
+            <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 6h8c2 0 2 1 2 3v17c0-2-1-3-3-3H6zM26 6h-8c-2 0-2 1-2 3v17c0-2 1-3 3-3h7z"/></svg>Guide</span>
+          </div>
+          <div class="vl-row vl-wb-states">
+            <span class="vl-seg"><b>Day</b><span>Week</span><span>Month</span></span>
+            <span class="vl-dots" aria-label="Wash and no wash"><i class="w"></i>Wash <i class="n"></i>No wash</span>
+          </div>
+          <div class="vl-row vl-cal" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="t"></i><i class="t"></i><i class="t"></i><i></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="o"></i><i class="o"></i></div>
+          <div class="vl-wb-bar"><span>Top</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7M6 10v10h4v-6h4v6h4V10"/></svg><span>Down</span></div>
+        </div>
+        <ul class="swatches" aria-label="Palette">
+          <li><i style="background:#1f3a5a"></i>#1F3A5A</li>
+          <li><i style="background:#3fa9b5"></i>#3FA9B5</li>
+          <li><i style="background:#63b5b2"></i>#63B5B2</li>
+          <li><i style="background:#ab2d2d"></i>#AB2D2D</li>
+          <li><i style="background:#f3f6f7"></i>#F3F6F7</li>
+        </ul>
+        <figcaption>Palette and components, redrawn from the app’s screens in the thesis.</figcaption>
+      </figure>
     <div class="wb-sim wide" id="wb-app">
       <div class="wb-phone" aria-label="WashB app prototype">
         <div class="wb-screen" data-cur="connect">
@@ -773,7 +821,7 @@
         <p>The units talk to a PC over Bluetooth Low Energy: each is a GATT server, and a bridge per unit turns the link into a virtual serial port for its own micro-ROS agent. In ROS 2, the multilaterator turns the calibrated ranges into positions, and the orchestrator, a closed-loop controller, turns them into feedback commands that travel back the same way. The dashboard runs the task; sessions go to MongoDB and are analysed in OmniAnalytics.</p>
       </div>
       <figure>
-        <div class="plate vec-plate"><svg class="ot-arch" viewBox="0 0 560 328" role="img" aria-label="OmniTrack architecture: anchors and tags, Bluetooth bridges with micro-ROS agents, ROS 2 multilaterator and orchestrator, dashboard, database and OmniAnalytics"><defs><marker id="otA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink-2)"/></marker></defs><rect x="378" y="10" width="174" height="214" rx="10" fill="none" stroke="var(--line)" stroke-dasharray="4 4"/><text x="544" y="27" font-size="10.5" text-anchor="end" fill="var(--ink-2)">ROS 2 Jazzy</text><g><rect x="14" y="14" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="94.0" y="37" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">8 anchors</text><text x="94.0" y="54" font-size="10" text-anchor="middle" fill="var(--ink-2)">ESP32-S3 + UWB DW3000</text></g><g><rect x="14" y="130" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="94.0" y="153" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Units P1, O1–O3</text><text x="94.0" y="170" font-size="10" text-anchor="middle" fill="var(--ink-2)">UWB, IMU, light, sound, vibration</text></g><g><rect x="200" y="130" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="280.0" y="153" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Bridge + micro-ROS</text><text x="280.0" y="170" font-size="10" text-anchor="middle" fill="var(--ink-2)">one per unit, virtual serial</text></g><g><rect x="386" y="40" width="160" height="56" rx="8" fill="#e8f6f4" stroke="#17a398" stroke-width="1.5"/><text x="466.0" y="63" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Multilaterator</text><text x="466.0" y="80" font-size="10" text-anchor="middle" fill="var(--ink-2)">calibrate, smooth, solve</text></g><g><rect x="386" y="150" width="160" height="56" rx="8" fill="#e8f6f4" stroke="#17a398" stroke-width="1.5"/><text x="466.0" y="173" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Orchestrator</text><text x="466.0" y="190" font-size="10" text-anchor="middle" fill="var(--ink-2)">hot–cold controller</text></g><g><rect x="386" y="262" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="466.0" y="285" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Dashboard</text><text x="466.0" y="302" font-size="10" text-anchor="middle" fill="var(--ink-2)">room setup, task control</text></g><g><rect x="200" y="262" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="280.0" y="285" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">MongoDB</text><text x="280.0" y="302" font-size="10" text-anchor="middle" fill="var(--ink-2)">session logs</text></g><g><rect x="14" y="262" width="160" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="94.0" y="285" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">OmniAnalytics</text><text x="94.0" y="302" font-size="10" text-anchor="middle" fill="var(--ink-2)">offline analysis</text></g><line x1="94" y1="72" x2="94" y2="128" stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#otA)"/><text x="100" y="104" font-size="9.5" text-anchor="start" fill="var(--ink-2)">UWB ranging</text><line x1="176" y1="150" x2="198" y2="150" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><line x1="198" y1="170" x2="176" y2="170" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="187" y="124" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">BLE</text><line x1="362" y1="148" x2="384" y2="92" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><line x1="466" y1="98" x2="466" y2="148" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><line x1="384" y1="182" x2="362" y2="182" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="318" y="201" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">commands</text><text x="350" y="112" font-size="9.5" text-anchor="end" fill="var(--ink-2)">ranges, IMU</text><line x1="466" y1="260" x2="466" y2="208" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><line x1="476" y1="208" x2="476" y2="260" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="482" y="240" font-size="9.5" fill="var(--ink-2)">task</text><line x1="420" y1="208" x2="300" y2="260" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="368" y="252" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">log</text><line x1="198" y1="290" x2="176" y2="290" stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#otA)"/></svg></div>
+        <div class="plate vec-plate"><svg class="ot-arch ot-arch-sys" viewBox="0 0 560 372" role="img" aria-label="OmniTrack architecture: anchors and tags, Bluetooth bridges with micro-ROS agents, ROS 2 multilaterator and orchestrator, dashboard, database and OmniAnalytics"><defs><marker id="otA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink-2)"/></marker></defs><rect x="392" y="10" width="166" height="216" rx="10" fill="none" stroke="var(--line)" stroke-dasharray="4 4"/><text x="552" y="24" font-size="10.5" text-anchor="end" fill="var(--ink-2)">ROS 2 Jazzy</text><g><rect x="8" y="30" width="164" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="90.0" y="53" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">8 anchors</text><text x="90.0" y="70" font-size="10" text-anchor="middle" fill="var(--ink-2)">ESP32-S3 + UWB DW3000</text></g><g><rect x="8" y="160" width="164" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="90.0" y="183" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Units P1, O1–O3</text><text x="90.0" y="200" font-size="10" text-anchor="middle" fill="var(--ink-2)">UWB, IMU, light, sound, vibration</text></g><g><rect x="198" y="160" width="142" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="269.0" y="183" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Bridge + micro-ROS</text><text x="269.0" y="200" font-size="10" text-anchor="middle" fill="var(--ink-2)">one per unit, virtual serial</text></g><g><rect x="400" y="30" width="152" height="56" rx="8" fill="#e8f6f4" stroke="#17a398" stroke-width="1.5"/><text x="476.0" y="53" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Multilaterator</text><text x="476.0" y="70" font-size="10" text-anchor="middle" fill="var(--ink-2)">calibrate, smooth, solve</text></g><g><rect x="400" y="160" width="152" height="56" rx="8" fill="#e8f6f4" stroke="#17a398" stroke-width="1.5"/><text x="476.0" y="183" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Orchestrator</text><text x="476.0" y="200" font-size="10" text-anchor="middle" fill="var(--ink-2)">hot–cold controller</text></g><g><rect x="8" y="310" width="164" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="90.0" y="333" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">OmniAnalytics</text><text x="90.0" y="350" font-size="10" text-anchor="middle" fill="var(--ink-2)">offline analysis</text></g><g><rect x="198" y="310" width="142" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="269.0" y="333" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">MongoDB</text><text x="269.0" y="350" font-size="10" text-anchor="middle" fill="var(--ink-2)">session logs</text></g><g><rect x="400" y="310" width="152" height="56" rx="8" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/><text x="476.0" y="333" font-size="12.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Dashboard</text><text x="476.0" y="350" font-size="10" text-anchor="middle" fill="var(--ink-2)">room setup, task control</text></g><path d="M90.0 88 V158" fill="none" stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#otA)"/><text x="96.0" y="127.0" font-size="9.5" text-anchor="start" fill="var(--ink-2)">UWB ranging</text><path d="M174 180 H196" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><path d="M196 198 H174" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="185.0" y="154" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">BLE</text><path d="M269.0 158 V58 H398" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="342.5" y="52" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">ranges, IMU</text><path d="M476.0 88 V158" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="482.0" y="127.0" font-size="9.5" text-anchor="start" fill="var(--ink-2)">positions</text><path d="M398 196 H342" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="370.0" y="211" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">commands</text><path d="M470.0 308 V218" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><path d="M490.0 218 V308" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="496.0" y="267.0" font-size="9.5" text-anchor="start" fill="var(--ink-2)">task</text><path d="M416 218 V262 H269.0 V308" fill="none" stroke="var(--ink-2)" stroke-width="1.4" marker-end="url(#otA)"/><text x="342.5" y="256" font-size="9.5" text-anchor="middle" fill="var(--ink-2)">log</text><path d="M196 338 H174" fill="none" stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#otA)"/></svg></div>
         <figcaption>From the radios to the feedback and the data. Solid arrows run every cycle; dashed ones are radio or offline.</figcaption>
       </figure>
     
@@ -995,6 +1043,57 @@
       </ul>
     </section>
 
+    <section class="step">
+      <div class="text">
+        <h2><span class="n">7</span>Future work</h2>
+        <div class="cx-seg fx-topics" role="group" aria-label="Future work">
+          <button type="button" data-topic="smooth" aria-pressed="true">Adaptive smoothing</button>
+          <button type="button" data-topic="calib" aria-pressed="false">Neural calibration</button>
+        </div>
+        <div class="fx-tx" data-topic="smooth">
+        <h3>Smoothing that adapts to movement</h3>
+        <p>Every range goes through exponential smoothing, <i>s<sub>t</sub> = α x<sub>t</sub> + (1 − α) s<sub>t−1</sub></i>. Today α is fixed at 0.4, a time constant of about 196 ms at 10 Hz: a compromise between a steady signal when the user stands still and a quick one when they move.</p>
+        <p>The next step is to let α follow the movement: a regression with an MLP neural network that reads the IMU and the UWB ranges and predicts α at every sample.</p>
+        <p class="quote">The network learns to recognise movement patterns on its own.</p>
+        <p>When it detects a sudden acceleration, typical of a change of direction, it pushes α towards 0.9 so that the feedback no longer lags behind. When the user stands still it lowers α to 0.1, to hold back the millimetre jitter of UWB.</p>
+        </div>
+        <div class="fx-tx" data-topic="calib" hidden>
+        <h3>Calibration learned by a neural network</h3>
+        <p>Today each anchor’s ranges are corrected by a polynomial of degree 1 to 3, and the position is then solved by least squares. Three options under study would let a network learn the room instead, from the most immediate to the most advanced:</p>
+        <ol class="fx-ol">
+          <li>a network that cleans each range before multilateration;</li>
+          <li>a network that goes straight from the eight ranges to the position;</li>
+          <li>a network that also knows the geometry of the room.</li>
+        </ol>
+        </div>
+      </div>
+      <div></div>
+      <div class="cx fx wide" id="fx">
+        <p class="sim-flag" data-topic="smooth"><b>Concept</b>A simulated session and a small network trained on synthetic data for this page: adaptive smoothing is future work, not yet tested on OmniTrack.</p>
+        <p class="sim-flag" data-topic="calib" hidden><b>Concept</b>Three options under study: the diagrams show the idea. In option 2 the room is simulated, and the network’s behaviour is approximated by leaving out the anchor that disagrees with the others.</p>
+        <div class="fx-top">
+          <div class="cx-tabs" role="tablist" aria-label="Adaptive smoothing" data-topic="smooth">
+            <button type="button" role="tab" data-t="in" aria-selected="true">1 · Input signals</button>
+            <button type="button" role="tab" data-t="out" aria-selected="false">2 · Network output</button>
+          </div>
+          <div class="cx-tabs" role="tablist" aria-label="Neural calibration" data-topic="calib" hidden>
+            <button type="button" role="tab" data-c="1" aria-selected="true">1 · Deep regressor</button>
+            <button type="button" role="tab" data-c="2" aria-selected="false">2 · End-to-end</button>
+            <button type="button" role="tab" data-c="3" aria-selected="false">3 · PINN</button>
+          </div>
+          <div class="cx-seg" role="group" aria-label="Time window" data-topic="smooth">
+            <button type="button" data-w="all" aria-pressed="true">Whole session</button>
+            <button type="button" data-w="turn" aria-pressed="false">The turn</button>
+            <button type="button" data-w="still" aria-pressed="false">Standing still</button>
+          </div>
+        </div>
+        <div class="cx-body">
+          <div class="cx-chart"><svg viewBox="0 0 520 290" role="img" aria-label="Simulated signals and smoothing over a 30-second session"></svg></div>
+          <div class="cx-side"></div>
+        </div>
+      </div>
+    </section>
+
     <nav class="next" aria-label="Next project">
       <a href="#red-6-3"><span class="muted">Next project</span><h2>RED 6.3</h2></a>
     </nav>
@@ -1067,8 +1166,40 @@
         <h2><span class="n">4</span>App</h2>
         <p>Riders follow the robot from the sharing app: notifications from RED 6.3, the scooters on the map with their charge, and the details of the one they pick.</p>
         <p>The prototype is rebuilt from the app’s screens in the portfolio, as its original files are not available. The map, plates and addresses are sample data.</p>
+        <h3>Visual language</h3>
+        <p>The app takes on the sharing service’s yellow for its bars and puts everything else on a dark ground, so the map and the scooters stand out outdoors. Teal means charge and action, red a battery running low; the icons are white and drawn with a single line.</p>
+        
       </div>
-      <div></div>
+      <figure class="vl-fig">
+        <div class="vl vl-rd">
+          <div class="vl-rd-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Scooters</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+          <div class="vl-rd-body">
+            <div class="vl-rd-splash"><b>RED</b><small>6.3</small></div>
+            <div class="vl-rd-side"><div class="vl-rd-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>Search an address</div>
+              <div class="vl-rd-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg>RED 6.3 is on its way</div></div>
+            <div class="vl-rd-card">
+              <span class="vl-rd-k">Charge</span>
+              <span class="vl-rd-bar"><i style="width:78%"></i></span>
+              <span class="vl-rd-bar"><i class="low" style="width:14%"></i></span>
+              <span class="vl-rd-btns"><span class="vl-rd-cta">Call RED 6.3</span><span class="vl-rd-cta ghost">Details</span></span>
+            </div>
+            <div class="vl-row vl-rd-icons" aria-label="Icons">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg>Charge</span>
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg>Place</span>
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17h12l-1-2V10a5 5 0 0 0-10 0v5zM10 20a2 2 0 0 0 4 0"/></svg>Notify</span>
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17h6l3-8h3M9 9h4"/></svg>Scooter</span>
+            </div>
+          </div>
+        </div>
+        <ul class="swatches" aria-label="Palette">
+          <li><i style="background:#f2c418"></i>#F2C418</li>
+          <li><i style="background:#17a398"></i>#17A398</li>
+          <li><i style="background:#d9452b"></i>#D9452B</li>
+          <li><i style="background:#262626"></i>#262626</li>
+          <li><i style="background:#f2f2f2"></i>#F2F2F2</li>
+        </ul>
+        <figcaption>Palette and components, redrawn from the app’s screens in the portfolio.</figcaption>
+      </figure>
     <div class="rd-sim wide" id="rd-app">
       <div class="rd-phone" aria-label="Sharing app prototype">
         <div class="rd-screen" data-cur="splash">
@@ -3761,6 +3892,11 @@ if (distance &gt; minDistance) {
 <script src="js/27-tools.js"></script>
 <script src="js/28-for.js"></script>
 <script src="js/29-squeeze.js"></script>
+<script src="js/30-arch.js"></script>
+<script src="js/31-od-layout.js"></script>
+<script src="js/32-wb-flow.js"></script>
+<script src="js/33-ot-adapt.js"></script>
+<script src="js/34-wb-survey.js"></script>
 
 </body>
 </html>
